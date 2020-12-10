@@ -19,7 +19,7 @@ insights.
 For a detailed description of this architecture, please see [our design
 doc][design-doc].
 
-If you have any questions, please join the #prometheus channel on
+If you have any questions, please join the #promscale channel on
 [TimescaleDB Slack](https://slack.timescale.com/), or the
 [Timescale-Prometheus Users Google Group](https://groups.google.com/forum/#!forum/timescale-prometheus-users).
 
