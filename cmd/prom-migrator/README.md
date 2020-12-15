@@ -61,7 +61,7 @@ as write endpoints are somewhat constrained.
 #### Example
 
 ```
-./prom-migrator -mint=1606408552 -maxt=1606415752 -read-url=<read_endpoint_url_for_remote_read_storage> -write-url=<write_endpoint_url_for_remote_write_storage> -writer-read-url=<read_endpoint_url_for_remote_write_storage>
+./prom-migrator -mint=1606408552 -maxt=1606415752 -read-url=<read_endpoint_url_for_remote_read_storage> -write-url=<write_endpoint_url_for_remote_write_storage> -progress-metric-url=<read_endpoint_url_for_remote_write_storage>
 ```
 
 ## CLI flags
@@ -77,8 +77,8 @@ as write endpoints are somewhat constrained.
 | migration-name | string | false | prom-migrator | Name for the current migration that is to be carried out. It corresponds to the value of the label 'job' set inside the progress-metric-name.|
 | max-read-size | string | false | 500MB | (units: B, KB, MB, GB, TB, PB) the maximum size of data that should be read at a single time. More the read size, faster will be the migration but higher will be the memory usage. Example: 250MB. |
 | progress-enabled | boolean | false | true | This flag tells the migrator, whether or not to use the progress mechanism. It is helpful if you want to carry out migration with the same time-range. If this is enabled, the migrator will resume the migration from the last time, where it was stopped/interrupted. If you do not want any extra metric(s) while migration, you can set this to false. But, setting this to false will disble progress-metric and hence, the ability to resume migration. |
-| progress-metric-name | string | false | prom_migrator_progress | Prometheus metric name for tracking thelast maximum timestamp pushed to the remote-write storage. This is used to resume the migration process after a failure. |
-| progress-metric-url | string | false | | URL of the remote storage that contains the progress-metric. Note: This url is used to fetch the last pushed timestamp. If you want the migration to resume from where it left, in case of a crash, set this to the remote write storage that the migrator is writing along with the progress-enabled. |
+| progress-metric-name | string | true (w/metric progress) | prom_migrator_progress | Prometheus metric name for tracking thelast maximum timestamp pushed to the remote-write storage. This is used to resume the migration process after a failure. |
+| progress-metric-url | string | true (w/metric progress) | | URL of the remote storage that contains the progress-metric. Note: This url is used to fetch the last pushed timestamp. If you want the migration to resume from where it left, in case of a crash, set this to the remote write storage that the migrator is writing along with the progress-enabled. |
 
 **Note:** A simple way to find timestamp in seconds unix, you can simply query in prometheus's (or related
 platform) UI and see the start/end timestamp. If in decimal, the part prior to the decimal point will be
